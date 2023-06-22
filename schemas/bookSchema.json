@@ -1,0 +1,51 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Welcome3",
+    "definitions": {
+        "Welcome3": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "isbn": {
+                    "type": "string"
+                },
+                "amazon_url": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "http"
+                    ]
+                },
+                "author": {
+                    "type": "string"
+                },
+                "language": {
+                    "type": "string"
+                },
+                "pages": {
+                    "type": "integer"
+                },
+                "publisher": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "amazon_url",
+                "author",
+                "isbn",
+                "language",
+                "pages",
+                "publisher",
+                "title",
+                "year"
+            ],
+            "title": "Welcome3"
+        }
+    }
+}
