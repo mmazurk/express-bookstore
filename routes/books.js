@@ -46,8 +46,17 @@ router.post("/", async function (req, res, next) {
 });
 
 /** PUT /[isbn]   bookData => {book: updatedBook}  */
-
+ 
 router.put("/:isbn", async function (req, res, next) {
+
+  const book = await Book.findOne(req.params.isbn);
+  const result = jsonschema.validate(req.body, bookSchema);
+  if(!result.valid){
+    const errorList = result.errors.map(item => item.stack)
+    const err = new ExpressError(errorList, 400);
+    return next(err);
+  }
+
   try {
     const book = await Book.update(req.params.isbn, req.body);
     return res.json({ book });

@@ -42,6 +42,43 @@ describe("Book Routes Test", function () {
       );
     });
   });
+
+  describe("POST request", () => {
+    test("displays error on incorrect schema", async () => {
+      let response = await request(app)
+      .post("/books")
+      .send({
+        isbn: "9780060850524",
+        amazon_url: "https://www.amazon.com/Brave-New-World-Aldous-Huxley/dp/0060850523",
+        author: 1111,
+        language: "English",
+        pages: "hello there",
+        publisher: "Harper Perennial Modern Classics",
+        title: "Brave New World",
+        year: 1932
+      })
+      expect(response.body.error.message.length).toEqual(2);
+    })
+  })
+
+  describe("PUT request", () => {
+    test("allows PUT request", async () => {
+      let response = await request(app)
+      .put("/books/9780060850524")
+      .send({
+        isbn: "9780060850524",
+        amazon_url: "https://www.amazon.com/Brave-New-World-Aldous-Huxley/dp/0060850523",
+        author: "Candy",
+        language: "English",
+        pages: 333,
+        publisher: "Harper Perennial Modern Classics",
+        title: "Brave New World",
+        year: 1932
+      })
+      expect(response.body.book).toHaveProperty('author', "Candy");
+    })
+  })
+
 });
 
 afterAll(async function () {
